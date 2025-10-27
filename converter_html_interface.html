@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Converter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+        }
+
+        .header-text {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            border-color: #3b82f6;
+        }
+
+        .form-group input:disabled,
+        .form-group select:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .info-box {
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .info-box.blue {
+            background: #dbeafe;
+            color: #1e3a8a;
+            border: 1px solid #93c5fd;
+        }
+
+        .info-box.green {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .info-box.red {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checkbox-item:hover {
+            border-color: #d1d5db;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .checkbox-item.checked {
+            background: #eff6ff;
+            border-color: #93c5fd;
+        }
+
+        .checkbox-item.disabled {
+            background: #f9fafb;
+            border-color: #e5e7eb;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .checkbox-label {
+            flex: 1;
+        }
+
+        .checkbox-label p:first-child {
+            font-weight: 500;
+            color: #111827;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .checkbox-label p:last-child {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .button.primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .button.primary:hover:not(:disabled) {
+            background: #1d4ed8;
+        }
+
+        .button.secondary {
+            background: #4b5563;
+            color: white;
+        }
+
+        .button.secondary:hover:not(:disabled) {
+            background: #374151;
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2563eb;
+            transition: width 0.3s;
+            width: 0%;
+        }
+
+        .logs {
+            background: #1f2937;
+            color: #10b981;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.5;
+        }
+
+        .log-line {
+            margin-bottom: 4px;
+        }
+
+        .log-line.success {
+            color: #10b981;
+        }
+
+        .log-line.error {
+            color: #ef4444;
+        }
+
+        .log-line.warning {
+            color: #f59e0b;
+        }
+
+        .log-line.info {
+            color: #3b82f6;
+        }
+
+        .log-empty {
+            color: #6b7280;
+        }
+
+        .column-left {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .column-right {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .space-y {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="/home/siddharthb9/Desktop/nuSceneses&IDD3D/idd3d2nuScenes/idd3d_to_nuscenes_scripts/kpitlogo.png" alt="KPIT Logo" class="logo" id="companyLogo">
+            <div class="header-text">
+                <h1>Dataset Converter</h1>
+                <p>Convert between autonomous driving dataset formats</p>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- Left Column -->
+            <div class="column-left">
+                <!-- Source Dataset -->
+                <div class="card">
+                    <h2>Source Dataset</h2>
+                    <div class="form-group">
+                        <label>Select Dataset</label>
+                        <select id="sourceDataset">
+                            <option value="idd3d">IDD3D</option>
+                        </select>
+                    </div>
+                    <div class="info-box blue" id="sourceInfo">
+                        <strong>IDD3D (Indian Dataset)</strong>
+                        6 cameras, 1 LiDAR, GPS - 10Hz camera, 10Hz LiDAR<br>
+                        <strong style="margin-top: 4px; display: block;">Sensors:</strong> 6 RGB cameras, 64-channel LiDAR, GPS
+                    </div>
+                </div>
+
+                <!-- Target Dataset -->
+                <div class="card">
+                    <h2>Target Format</h2>
+                    <div class="form-group">
+                        <label>Select Format</label>
+                        <select id="targetDataset">
+                            <option value="nuscenes">nuScenes</option>
+                        </select>
+                    </div>
+                    <div class="info-box green" id="targetInfo">
+                        <strong>nuScenes</strong>
+                        6 cameras, 1 LiDAR, 5 RADARs, GPS/IMU - 12Hz camera, 20Hz LiDAR<br>
+                        <strong style="margin-top: 4px; display: block;">Format:</strong> JPEG (camera), .pcd.bin (lidar), JSON (metadata)
+                    </div>
+                </div>
+
+                <!-- Paths -->
+                <div class="card">
+                    <h2>Paths</h2>
+                    <div class="form-group">
+                        <label>Root Directory</label>
+                        <input type="text" id="rootPath" value="/home/siddharthb9/Desktop/nuSceneses&IDD3D">
+                    </div>
+                    <div class="form-group">
+                        <label>Sequence ID</label>
+                        <input type="text" id="sequenceId" value="20220118103308_seq_10">
+                    </div>
+                    <button class="button secondary" id="validateBtn" onclick="validatePaths()">Validate Paths</button>
+                    <div id="validationResult" style="margin-top: 12px;"></div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="column-right">
+                <!-- Conversion Modules -->
+                <div class="card">
+                    <h2>Conversion Modules</h2>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item checked">
+                            <input type="checkbox" name="conv" value="lidar" checked>
+                            <div class="checkbox-label">
+                                <p>LiDAR Conversion</p>
+                                <p>Convert .pcd to .pcd.bin</p>
+                            </div>
+                        </label>
+                        <label class="checkbox-item checked">
+                            <input type="checkbox" name="conv" value="camera" checked>
+                            <div class="checkbox-label">
+                                <p>Camera Conversion</p>
+                                <p>Convert PNG to JPEG</p>
+                            </div>
+                        </label>
+                        <label class="checkbox-item checked">
+                            <input type="checkbox" name="conv" value="calib" checked>
+                            <div class="checkbox-label">
+                                <p>Calibration</p>
+                                <p>Generate sensor calibration</p>
+                            </div>
+                        </label>
+                        <label class="checkbox-item checked">
+                            <input type="checkbox" name="conv" value="annot" checked>
+                            <div class="checkbox-label">
+                                <p>Annotations</p>
+                                <p>Convert frame annotations</p>
+                            </div>
+                        </label>
+                        <label class="checkbox-item checked">
+                            <input type="checkbox" name="conv" value="sample" checked>
+                            <div class="checkbox-label">
+                                <p>Sample</p>
+                                <p>Build sample sequence</p>
+                            </div>
+                        </label>
+                        <label class="checkbox-item checked">
+                            <input type="checkbox" name="conv" value="sample_annotation" checked>
+                            <div class="checkbox-label">
+                                <p>Sample Annotation</p>
+                                <p>Create object annotations</p>
+                            </div>
+                        </label>
+                        <label class="checkbox-item checked">
+                            <input type="checkbox" name="conv" value="category" checked>
+                            <div class="checkbox-label">
+                                <p>Category</p>
+                                <p>Generate object categories</p>
+                            </div>
+                        </label>
+                        <label class="checkbox-item checked">
+                            <input type="checkbox" name="conv" value="instance" checked>
+                            <div class="checkbox-label">
+                                <p>Instance</p>
+                                <p>Generate instance.json (track objects)</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <div id="progressContainer" style="display: none;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                                <span>Progress</span>
+                                <span id="progressPercent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="button primary" id="startBtn" onclick="startConversion()" style="margin-top: 20px;">▶ Start Conversion</button>
+                </div>
+
+                <!-- Logs -->
+                <div class="card">
+                    <h2>Conversion Log</h2>
+                    <div class="logs" id="logsContainer">
+                        <div class="log-empty">Logs will appear here...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5001/api';
+        let isRunning = false;
+
+        const datasets = {
+            idd3d: {
+                name: 'IDD3D (Indian Dataset)',
+                description: '6 cameras, 1 LiDAR, GPS - 10Hz camera, 10Hz LiDAR',
+                sensors: '6 RGB cameras, 64-channel LiDAR, GPS'
+            },
+            nuscenes: {
+                name: 'nuScenes',
+                description: '6 cameras, 1 LiDAR, 5 RADARs, GPS/IMU - 12Hz camera, 20Hz LiDAR',
+                sensors: '6 cameras, Velodyne HDL-32E, 5 RADARs, GPS/IMU'
+            }
+        };
+
+        // Update checkbox styling on change
+        document.querySelectorAll('input[name="conv"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const label = this.closest('.checkbox-item');
+                if (this.checked) {
+                    label.classList.add('checked');
+                } else {
+                    label.classList.remove('checked');
+                }
+            });
+        });
+
+        function addLog(message, type = 'info', backendTs = null) {
+            const logsContainer = document.getElementById('logsContainer');
+            
+            if (logsContainer.querySelector('.log-empty')) {
+                logsContainer.innerHTML = '';
+            }
+
+            // Prefer backend-provided timestamp if available (ext.py provides a "timestamp" string)
+            const timestamp = backendTs ? backendTs : new Date().toLocaleTimeString();
+            const logLine = document.createElement('div');
+            logLine.className = `log-line ${type}`;
+            logLine.textContent = `[${timestamp}] ${message}`;
+            
+            logsContainer.appendChild(logLine);
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+        }
+
+        async function validatePaths() {
+            const rootPath = document.getElementById('rootPath').value;
+            const sequenceId = document.getElementById('sequenceId').value;
+            const resultDiv = document.getElementById('validationResult');
+
+            document.getElementById('validateBtn').disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/validate-paths`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ root_path: rootPath, sequence_id: sequenceId })
+                });
+
+                const data = await response.json();
+
+                if (data.valid) {
+                    resultDiv.innerHTML = `
+                        <div class="info-box green">
+                            <strong>✓ Paths valid</strong>
+                            LiDAR files: ${data.lidar_files}<br>
+                            Label files: ${data.label_files}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="info-box red">
+                            <strong>✗ Validation failed</strong>
+                            ${data.error}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="info-box red">
+                        <strong>✗ Error</strong>
+                        ${error.message}
+                    </div>
+                `;
+            } finally {
+                document.getElementById('validateBtn').disabled = false;
+            }
+        }
+
+        async function startConversion() {
+            if (isRunning) return;
+
+            const rootPath = document.getElementById('rootPath').value;
+            const sequenceId = document.getElementById('sequenceId').value;
+
+            if (!rootPath.trim()) {
+                addLog('Error: Root path is required', 'error');
+                return;
+            }
+
+            const conversions = {};
+            // Note: timestamp_sync input is disabled so it will be excluded automatically
+            document.querySelectorAll('input[name="conv"]:not(:disabled)').forEach(checkbox => {
+                conversions[checkbox.value] = checkbox.checked;
+            });
+
+            const activeCount = Object.values(conversions).filter(v => v).length;
+            if (activeCount === 0) {
+                addLog('Error: No conversion modules selected', 'error');
+                return;
+            }
+
+            isRunning = true;
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('logsContainer').innerHTML = '';
+
+            addLog(`Starting conversion: idd3d → nuscenes`, 'info');
+            addLog(`Root path: ${rootPath}`, 'info');
+            addLog(`Sequence ID: ${sequenceId}`, 'info');
+            addLog(`Active conversions: ${Object.keys(conversions).filter(k => conversions[k]).join(', ')}`, 'info');
+
+            try {
+                const response = await fetch(`${API_BASE}/convert/stream`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        root_path: rootPath,
+                        sequence_id: sequenceId,
+                        conversions: conversions,
+                        source: 'idd3d',
+                        target: 'nuscenes'
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    addLog(`Error: ${error.error}`, 'error');
+                    return;
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines[lines.length - 1];
+
+                    for (let i = 0; i < lines.length - 1; i++) {
+                        const line = lines[i];
+                        if (line.startsWith('data: ')) {
+                            try {
+                                const logEntry = JSON.parse(line.slice(6));
+                                // ext.py sends entries with fields: timestamp, message, type
+                                if (logEntry.type === 'complete') {
+                                    document.getElementById('progressFill').style.width = '100%';
+                                    document.getElementById('progressPercent').textContent = '100%';
+                                } else {
+                                    // Pass backend timestamp to addLog when available
+                                    addLog(logEntry.message, logEntry.type, logEntry.timestamp || null);
+                                }
+                            } catch (e) {
+                                // Skip parse errors
+                            }
+                        }
+                    }
+                }
+
+                addLog('✓ Conversion completed successfully!', 'success');
+                addLog(`Output directory: ${rootPath}/Intermediate_format/`, 'info');
+            } catch (error) {
+                addLog(`Error: ${error.message}`, 'error');
+            } finally {
+                isRunning = false;
+                document.getElementById('startBtn').disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
