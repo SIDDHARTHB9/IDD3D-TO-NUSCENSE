@@ -416,10 +416,24 @@
                             </div>
                         </label>
                         <label class="checkbox-item checked">
+                            <input type="checkbox" name="conv" value="scene" checked>
+                            <div class="checkbox-label">
+                                <p>Scene</p>
+                                <p>Generate scene.json metadata</p>
+                            </div>
+                        </label>
+                        <label class="checkbox-item checked">
                             <input type="checkbox" name="conv" value="sample" checked>
                             <div class="checkbox-label">
                                 <p>Sample</p>
                                 <p>Build sample sequence</p>
+                            </div>
+                        </label>
+                        <label class="checkbox-item checked">
+                            <input type="checkbox" name="conv" value="sample_data" checked>
+                            <div class="checkbox-label">
+                                <p>Sample Data</p>
+                                <p>Link samples to sensor files</p>
                             </div>
                         </label>
                         <label class="checkbox-item checked">
@@ -441,6 +455,13 @@
                             <div class="checkbox-label">
                                 <p>Instance</p>
                                 <p>Generate instance.json (track objects)</p>
+                            </div>
+                        </label>
+                        <label class="checkbox-item checked">
+                            <input type="checkbox" name="conv" value="objects" checked>
+                            <div class="checkbox-label">
+                                <p>Objects (3D Bounding Boxes)</p>
+                                <p>Generate objects.json with bbox_3d format</p>
                             </div>
                         </label>
                     </div>
@@ -536,7 +557,7 @@
                 if (data.valid) {
                     resultDiv.innerHTML = `
                         <div class="info-box green">
-                            <strong>✓ Paths valid</strong>
+                            <strong>Paths valid</strong>
                             LiDAR files: ${data.lidar_files}<br>
                             Label files: ${data.label_files}
                         </div>
@@ -544,7 +565,7 @@
                 } else {
                     resultDiv.innerHTML = `
                         <div class="info-box red">
-                            <strong>✗ Validation failed</strong>
+                            <strong>Validation failed</strong>
                             ${data.error}
                         </div>
                     `;
