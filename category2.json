@@ -1,0 +1,72 @@
+[
+  {
+    "token": "dc39d8b2858e4bc0b7ddf66ede8d734e",
+    "name": "vehicle.motorcycle",
+    "description": "vehicle.motorcycle category"
+  },
+  {
+    "token": "d411b4e8157d445193034d6f408900d3",
+    "name": "movable_object.bicyclerider",
+    "description": "movable_object.bicyclerider category"
+  },
+  {
+    "token": "e2325ce5697e45678ee0fe4017918290",
+    "name": "movable_object.tourcar",
+    "description": "movable_object.tourcar category"
+  },
+  {
+    "token": "9a438c7df65d4ae0b5e87f603a3e91b7",
+    "name": "movable_object.scooterrider",
+    "description": "movable_object.scooterrider category"
+  },
+  {
+    "token": "1046b59779f24cf7b55114161208b0f5",
+    "name": "vehicle.bus",
+    "description": "vehicle.bus category"
+  },
+  {
+    "token": "57c2b779b57b496297048ea55aaed2c7",
+    "name": "movable_object.bicyclegroup",
+    "description": "movable_object.bicyclegroup category"
+  },
+  {
+    "token": "869140488b264d7780ed9cc8233cb5ce",
+    "name": "movable_object.van",
+    "description": "movable_object.van category"
+  },
+  {
+    "token": "69d88d0df8274f56995aacff1982ec65",
+    "name": "vehicle.truck",
+    "description": "vehicle.truck category"
+  },
+  {
+    "token": "9a6c42f9792f40789bc0437eba0aef9b",
+    "name": "movable_object.pedestrian",
+    "description": "movable_object.pedestrian category"
+  },
+  {
+    "token": "f15d03bf64834024a0601aae7a07c156",
+    "name": "movable_object.scooter",
+    "description": "movable_object.scooter category"
+  },
+  {
+    "token": "366ad39f728a4ab5ae9a4146f528bd00",
+    "name": "vehicle.bicycle",
+    "description": "vehicle.bicycle category"
+  },
+  {
+    "token": "f0add8f1828d4b7ca20d135edd7ecd4e",
+    "name": "movable_object.unknown",
+    "description": "movable_object.unknown category"
+  },
+  {
+    "token": "6bc7bdefe76646e193288d5928a2d58a",
+    "name": "movable_object.unknown1",
+    "description": "movable_object.unknown1 category"
+  },
+  {
+    "token": "3305eeb43e684538b00bcc41fc38d84e",
+    "name": "vehicle.car",
+    "description": "vehicle.car category"
+  }
+]
