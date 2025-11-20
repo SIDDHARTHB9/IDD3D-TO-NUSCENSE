@@ -1,0 +1,19 @@
+This is the last file that we need to genearte zoe_veh.json
+FL_wheel_speed	125.0166
+FR_wheel_speed	137.1513
+RL_wheel_speed	123.5988
+RR_wheel_speed	135.9837
+left_solar	-112
+longitudinal_accel	-0.09999999999999964
+meanEffTorque	8.0
+odom	48
+odom_speed	15.0JS:15
+pedal_cc	92.0JS:92
+regen	0.0JS:0
+requestedTorqueAfterProc	-376.5
+right_solar	100
+steer_corrected	156.5999999999999
+steer_offset_can	-12.599999999999909
+steer_raw	144.0JS:144
+transversal_accel	-0.3760000000000048
+utime	1531883530458427

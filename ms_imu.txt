@@ -1,0 +1,11 @@
+We will 1st genearte scene-0001_ms_imu.json file.
+
+it's structure is liek this:
+{"linear_accel": [0.07055188715457916, 1.1019431352615356, 9.19129753112793], 
+"q": [-0.9976208209991455, 0.004932738840579987, 0.01066172681748867, 0.06793174147605896], 
+"rotation_rate": [0.044520631432533264, 0.0013222545385360718, 0.28274568915367126], 
+"utime": 1531883530454603},
+
+nuScene has a total of 1943 instances of this above data as per idd3d i don't know homuch should we have.
+this is a file inside the /can_bus folder the /can_bus folder will be genearted 
+inside the output directory that we we choose

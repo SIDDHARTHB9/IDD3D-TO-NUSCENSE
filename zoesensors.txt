@@ -1,0 +1,6 @@
+Then we need to generate the zoesensors.josn
+
+brake_sensor	0.1708976775407791
+steering_sensor	0.1894087940454483
+throttle_sensor	0.1725797951221466
+utime	1531883530450971

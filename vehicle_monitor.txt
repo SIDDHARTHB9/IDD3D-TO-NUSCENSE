@@ -1,0 +1,18 @@
+Next we need to generate the vehicle_monitor.json
+
+available_distance	90
+battery_level	69
+brake	0
+brake_switch	1
+gear_position	7
+left_signal	0
+rear_left_rpm	117.5106
+rear_right_rpm	133.6485
+right_signal	0
+steering	191.9000000000001
+steering_speed	65.70000000000046
+throttle	55
+utime	1531883530891054
+vehicle_speed	14.74
+yaw_rate	18.900000000000034
+

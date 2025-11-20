@@ -1,0 +1,308 @@
+Hi ok so we need add the can bus to our conversion now will do this by stubbing there is no other way as we don't 
+have any can_bus data on IDD3D but for the nuScene to be running we need this
+
+Ok so here is the structure:
+every scene in nuScene has it's on 8 json files 
+   for eg:- 
+       scene-0001_meta.json
+       scene-0001_ms_imu
+       scene-0001_pose
+       scene-0001_route
+       scene-0001_steeranglefeedback
+       scene-0001_vehicle_monitor
+       scene-0001_zoe_vfh_info
+       scene-0001_zoesensors
+
+we need to generate all these files but for now we will go with the scene-0001_meta.json:
+so basically
+      /can_bus
+         /scene-0001_meta.json (we can take the scne name form idd3d it seld for eg we run teh idd3d_seq9 so it will be scene-0009_meta.json) these file content are as follows:  
+            MS_IMU:
+                message_count: let's assume its 1944 fro now 
+                message_frequency: message_count/timespan
+                timespan: as per idd3d we can keep this as 10
+                var_stats:
+                    linear_accel:	
+                        max	10.958097457885742
+                        max_diff	11.098673641681671
+                        mean	3.378945148226621
+                        mean_diff	4.782892669376574
+                        min	-0.889117419719696
+                        min_diff	-1.3476641178131104
+                        std	4.544055457697532
+                        std_diff	4.870200082736962 
+                    q: same as linear_accel
+                    rotation_rate: same as linear_accel
+                    utime: same as linear_accel
+            
+            POSE: 
+                message_count: let's assume its 1944 fro now 
+                message_frequency: message_count/timespan
+                timespan: as per idd3d we can keep this as 10
+                var_stats: 
+                    accel: 
+                        max	10.958097457885742
+                        max_diff	11.098673641681671
+                        mean	3.378945148226621
+                        mean_diff	4.782892669376574
+                        min	-0.889117419719696
+                        min_diff	-1.3476641178131104
+                        std	4.544055457697532
+                        std_diff	4.870200082736962
+                    
+                    orientation: same as accel
+                    pos: same as accel
+                    rotation_rate: same as accel
+                    utime: 
+                        max	1531883549954657
+                        max_diff	40353.0
+                        mean	1531883540169269.2
+                        mean_diff	10298.0929250264
+                        min	1531883530450069
+                        min_diff	2620.0
+                        std	5648567.440276202
+                        std_diff	2102.7753059090915
+                    vel: same as accel
+            
+            SteerAngleFeedback:
+                message_count: let's assume its 1895 fro now 
+                message_frequency: message_count/timespan
+                timespan: as per idd3d we can keep this as 10
+                var_stats:
+                    utime: same as POSE.utime
+                    value: same as linear_accel
+
+            VehicleMonitor:
+                message_count: let's assume its 40 fro now
+                message_frequency: message_count/timespan
+                timespan: as per idd3d we can keep this as 10
+                var_stats:
+                   available_distance: 
+                        max	100.0
+                        max_diff	0.0
+                        mean	100.0
+                        mean_diff	0.0
+                        min	100.0
+                        min_diff	0.0
+                        std	0.0
+                        std_diff	0.0
+                    battery_level: 
+                        max	100.0
+                        max_diff	0.0
+                        mean	100.0
+                        mean_diff	0.0
+                        min	100.0
+                        min_diff	0.0
+                        std	0.0
+                        std_diff	0.0
+                    brake: 
+                        max	0.0
+                        max_diff	0.0
+                        mean	0.0
+                        mean_diff	0.0
+                        min	0.0
+                        min_diff	0.0
+                        std	0.0
+                        std_diff	0.0
+                    brake_switch: (it can be 0 or 1)
+                        max	0
+                        max_diff	0
+                        mean	0.0
+                        mean_diff	0.0
+                        min	0
+                        min_diff	0
+                        std	0.0
+                        std_diff	0.0
+                    gear_position: (it can be 1,2,3,4,5,6,7)
+                        max	5
+                        max_diff	5
+                        mean	3.5
+                        mean_diff	2.0
+                        min	2
+                        min_diff	2
+                        std	1.5
+                        std_diff	1.58    
+                    left_signal: (it can be -1 or 0 or 1)
+                        max	0
+                        max_diff	0
+                        mean	0.0
+                        mean_diff	0.0
+                        min	0
+                        min_diff	0
+                        std	0.456758586739145
+                        std_diff	0.5015222229248423
+                    rear_left_rpm:
+                        max	205.3725
+                        max_diff	17.764199999999988
+                        mean	167.57562000000001
+                        mean_diff	2.252869230769231
+                        min	115.67580000000001
+                        min_diff	-8.88209999999998
+                        std	28.037097877590682
+                        std_diff	6.7347460482514006
+                    rear_right_rpm:
+                        max	210.4856
+                        max_diff	18.34589999999999
+                        mean	169.87683000000002
+                        mean_diff	2.5432092307692316
+                        min	120.67590000000001
+                        min_diff	-7.88219999999998
+                        std	29.03719887759068
+                        std_diff	7.7348460482514006
+                    right_signal: (it can be -1 or 0 or 1)
+                        max	1
+                        max_diff	1
+                        mean	0.1                                         
+                        mean_diff	0.0
+                        min	0
+                        min_diff	0
+                        std	   0.31622776601683794
+                        std_diff	0.39222322702763681
+                    steering:
+                        max	206.4000000000001
+                        max_diff	20.0
+                        mean	23.947499999999913
+                        mean_diff	-6.058974358974363
+                        min	-44.40000000000009
+                        min_diff	-78.19999999999982
+                        std	63.95300613536475
+                        std_diff	19.523289418468664
+                    steering_speed:
+                        max	65.70000000000046
+                        max_diff	67.69999999999983
+                        mean	-10.979999999999723
+                        mean_diff	-2.605128205128203
+                        min	-183.29999999999956
+                        min_diff	-123.50000000000001
+                        std	40.81711160775585
+                        std_diff	34.90708508435109
+                    throttle:
+                        max	202
+                        max_diff	72.0
+                        mean	95.5
+                        mean_diff	2.41025641025641
+                        min	0
+                        min_diff	-98.0
+                        std	65.78335655771906
+                        std_diff	33.005607875273334
+                    utime: same as POSE.utime
+                    vehicle_speed:
+                        max	23.12
+                        max_diff	1.1899999999999977
+                        mean	19.323500000000003
+                        mean_diff	0.2148717948717949
+                        min	14.530000000000001
+                        min_diff	-0.9599999999999973
+                        std	2.9579076642113087
+                        std_diff	0.6867682466371652
+                    yaw_rate:
+                        max	0.17453292519943295
+                        max_diff	0.03490658503988659
+                        mean	0.10471975511965977
+                        mean_diff	0.0052359877559829885
+                        min	0.03490658503988659
+                        min_diff	-0.017453292519943295
+                        std	0.039269908169872414
+                        std_diff	0.012217304763960213
+
+            ZOE_VEH_INFO:
+                message_count: let's assume its 1944 fro now 
+                message_frequency: message_count/timespan
+                timespan: as per idd3d we can keep this as 10
+                var_stats:
+                    FL_wheel_speed:
+                        max	202.0782
+                        max_diff	2.8355999999999995
+                        mean	166.8982037151703
+                        mean_diff	0.03847077955601446
+                        min	118.428
+                        min_diff	-3.0024000000000086
+                        std	27.19048069876295
+                        std_diff	0.4800366017204176
+                    FR_wheel_speed: same as FL_wheel_speed
+                    RL_wheel_speed: same as FL_wheel_speed
+                    RR_wheel_speed: same as FL_wheel_speed 
+                    left_solar:
+                        max	0
+                        max_diff	112.0
+                        mean	-16.123839009287927
+                        mean_diff	0.0
+                        min	-112
+                        min_diff	-112.0
+                        std	39.31783036540563
+                        std_diff	3.5988869959621863
+                    longitudinal_accel:
+                        max	3.5
+                        max_diff	4.0
+                        mean	0.5873015873015873
+                        mean_diff	0.0
+                        min	-4.0
+                        min_diff	-4.0
+                        std	1.8477590650225735
+                        std_diff	1.5275252316519468
+                    meanEffTorque:
+                        max	73.0
+                        max_diff	20.0
+                        mean	91.66666666666667
+                        mean_diff	2.0
+                        min	50.0
+                        min_diff	-20.0
+                        std	14.491376746189438
+                        std_diff	7.615773105863909
+                    odom:
+                        max	120
+                        max_diff	64.0
+                        mean	60.666666666666664
+                        mean_diff	0.004130098089829634
+                        min	0
+                        min_diff	-84.0
+                        std	34.79335033281763
+                        std_diff	18.79069793376512
+                    odom_speed: same as odom
+                    pedal_cc:
+                        max	273.0
+                        max_diff	15.0
+                        mean	136.45768833849328
+                        mean_diff	0.055756324212700055
+                        min	0.0
+                        min_diff	-22.0
+                        std	89.45404015194944
+                        std_diff	1.9844488742545665
+                    regen: same as pedal_cc
+                    requestedTorqueAfterProc:
+                        max	-272.5
+                        max_diff	123.5
+                        mean	-338.9256965944272
+                        mean_diff	0.014455343314403717
+                        min	-398.5
+                        min_diff	-125.5
+                        std	35.11740812048815
+                        std_diff	4.061802833258401
+                    right_solar: same as left_solar
+                    steer_corrected:
+                        max	206.4000000000001
+                        max_diff	1.400000000000091
+                        mean	27.39489164086678
+                        mean_diff	-0.09297883324728957
+                        min	-28.40000000000009
+                        min_diff	-2.0
+                        std	65.01354530385093
+                        std_diff	0.4559844213685396
+                    steer_offset_can: can be same as steer_corrected
+                    steer_raw: can be same as steer_corrected
+                    transversal_accel: 
+                        max	-0.3120000000000118
+                        max_diff	0.03200000000001069
+                        mean	-0.49124871001031933
+                        mean_diff	-7.434176561693622e-05
+                        min	-0.5999999999999943
+                        min_diff	-0.027999999999991587
+                        std	0.06300488179431007
+                        std_diff	0.005878361516407641
+                    utime: same as POSE.utime
+            ZoeSensors:
+                message_count: let's assume its 1944 fro now 
+                message_frequency: message_count/timespan
+                timespan: as per idd3d we can keep this as 10
+                var_stats:
+                
