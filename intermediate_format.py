@@ -10,7 +10,6 @@ class IFCalibration:
     camera_intrinsic: List[List[float]] = field(default_factory=list)  
     
     def __post_init__(self):
-        """Validate calibration data."""
         assert len(self.translation) == 3, "Translation must be [x, y, z]"
         assert len(self.rotation) == 4, "Rotation must be quaternion [w, x, y, z]"
         if self.camera_intrinsic:
@@ -58,7 +57,6 @@ class IFAnnotation:
     visibility: float = 1.0               
     
     def __post_init__(self):
-        """Validate annotation data."""
         assert len(self.translation) == 3, "Translation must be [x, y, z]"
         assert len(self.size) == 3, "Size must be [width, length, height]"
         assert len(self.rotation) == 4, "Rotation must be quaternion [w, x, y, z]"
