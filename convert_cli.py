@@ -4,12 +4,12 @@ import logging
 import os
 import traceback
 
-from readers import Idd3dReader, BaseReader
+from readers import Idd3dReader, Argoverse2Reader, BaseReader
 from writers import NuScenesWriter, BaseWriter
 
 SUPPORTED_READERS: dict[str, type[BaseReader]] = {
     "idd3d": Idd3dReader,
-    # "argoverse2": ArgoverseReader 
+    "argoverse2": Argoverse2Reader
 }
 
 SUPPORTED_WRITERS: dict[str, type[BaseWriter]] = {
@@ -23,7 +23,7 @@ def main():
     parser.add_argument("--writer", required=True, choices=SUPPORTED_WRITERS.keys(),
                         help="The output dataset format.")
     parser.add_argument("--input", required=True,
-                        help="Path to the PARENT directory containing all sequence folders (e.g., /path/to/all_idd3d_sequences).")
+                        help="Path to the PARENT directory containing all sequence folders.")
     parser.add_argument("--output", required=True,
                         help="Path to the single destination (output) directory.")
     
@@ -64,10 +64,12 @@ def main():
         sequence_folders_to_process = []
         for item_name in sorted(os.listdir(args.input)):
             seq_path = os.path.join(args.input, item_name)
-            if os.path.isdir(seq_path) and os.path.exists(os.path.join(seq_path, 'annot_data.json')):
-                sequence_folders_to_process.append(seq_path)
-            else:
-                log.warning(f"Skipping '{item_name}': Not a valid sequence folder (missing annot_data.json or not a directory).")
+            if os.path.isdir(seq_path):
+                validation = reader.validate(seq_path)
+                if validation['valid']:
+                    sequence_folders_to_process.append(seq_path)
+                else:
+                    log.warning(f"Skipping '{item_name}': {validation.get('error', 'Invalid sequence')}")
 
         if not sequence_folders_to_process:
             log.error(f"No valid sequence folders found in: {args.input}")
@@ -86,6 +88,10 @@ def main():
 
             log.info(f"Writing to output path: {args.output}")
             writer.write(intermediate_data, args.output)
+        
+        log.info("=" * 70)
+        log.info("Finalizing conversion...")
+        writer.finalize()
         
         log.info("=" * 70)
         log.info("All sequences processed successfully!")
